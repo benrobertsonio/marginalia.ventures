@@ -1,0 +1,108 @@
+---
+import Base from "../layouts/Base.astro";
+
+const products = [
+  {
+    name: "ColorBliss",
+    href: "https://colorbliss.com",
+    image: "/images/colorbliss.png",
+    description: "Create custom coloring pages and personalized coloring books with AI.",
+    action: "Make a coloring page",
+    visualClass: "bg-[#e8b49c]",
+    imageClass: "size-20 sm:size-24",
+  },
+  {
+    name: "Turnout",
+    href: "/turnout",
+    image: "/images/turnout.png",
+    description: "A Mac app that restores the right apps and windows for each kind of work.",
+    action: "See Turnout",
+    visualClass: "bg-[#17232d]",
+    imageClass: "size-20 sm:size-24",
+  },
+  {
+    name: "Holly",
+    href: "https://holly.support",
+    image: "/images/holly.png",
+    description: "AI support that investigates customer issues across your product stack before it answers.",
+    action: "Meet Holly",
+    visualClass: "bg-[#182019]",
+    imageClass: "size-20 sm:size-24",
+  },
+];
+---
+
+<Base
+  title="marginalia ventures"
+  description="Marginalia Ventures builds and operates focused products for work, customer support, and creativity."
+  ogTitle="marginalia ventures, an independent product company"
+>
+  <main id="main">
+    <section
+      class="mx-auto grid min-h-[34rem] max-w-page items-end gap-12 px-5 pb-16 pt-14 sm:min-h-[42rem] sm:px-8 sm:pb-20 sm:pt-20 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16"
+    >
+      <h1 class="font-display max-w-[10ch] text-[length:clamp(3.6rem,10.5vw,7.7rem)] text-ink">
+        Digital products for fun and profit.
+      </h1>
+      <p class="max-w-[31ch] pb-1 text-lg leading-relaxed text-quiet lg:pb-2">
+        Marginalia Ventures builds and operates focused products for work, customer support, and creativity.
+      </p>
+    </section>
+
+    <section
+      id="products"
+      aria-label="Products"
+      class="mx-auto max-w-page border-t border-rule px-5 sm:px-8"
+    >
+      <ul>
+        {
+          products.map((product) => (
+            <li class="border-b border-rule">
+              <a
+                href={product.href}
+                class="product group grid min-w-0 grid-cols-[5rem_minmax(0,1fr)] gap-x-5 gap-y-6 py-8 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-x-8 sm:py-10 lg:grid-cols-[9rem_minmax(0,1fr)_18rem] lg:items-center lg:gap-10"
+              >
+                <div
+                  class:list={[
+                    "flex aspect-square items-center justify-center overflow-hidden rounded-[1.25rem]",
+                    product.visualClass,
+                  ]}
+                >
+                  <img
+                    src={product.image}
+                    width="96"
+                    height="96"
+                    alt=""
+                    class:list={["object-contain", product.imageClass]}
+                  />
+                </div>
+                <h2 class="product-link font-display self-center text-[length:clamp(2.5rem,7vw,5.5rem)] text-ink">
+                  {product.name}
+                </h2>
+                <div class="col-start-2 lg:col-start-3">
+                  <p class="max-w-[36ch] text-[15px] leading-relaxed text-quiet">
+                    {product.description}
+                  </p>
+                  <p class="product-link mt-4 text-[15px] font-medium text-ink underline decoration-rule underline-offset-[3px]">
+                    {product.action}
+                  </p>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-20 bg-ink text-paper sm:mt-28">
+      <div class="mx-auto grid max-w-page gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end lg:gap-16">
+        <h2 class="font-display max-w-[11ch] text-[length:clamp(2.8rem,7vw,5.5rem)]">
+          From Travelers Rest, South Carolina.
+        </h2>
+        <p class="max-w-[31ch] pb-1 text-[15px] leading-relaxed text-paper/70">
+          Marginalia Ventures is an independent product company.
+        </p>
+      </div>
+    </section>
+  </main>
+</Base>

@@ -1,14 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
-  darkMode: 'selector',
+  content: ["./src/**/*.{astro,html,js}"],
   theme: {
     extend: {
+      colors: {
+        paper: "rgb(var(--paper-rgb) / <alpha-value>)",
+        ink: "rgb(var(--ink-rgb) / <alpha-value>)",
+        note: "var(--note)",
+        quiet: "var(--quiet)",
+        rule: "var(--rule)",
+      },
       fontFamily: {
-        'clash': ['Clash Display', 'sans-serif'],
-        'archivo': ['Archivo', 'sans-serif'],
+        sans: ['"Martian Grotesk"', "system-ui", "sans-serif"],
+      },
+      maxWidth: {
+        page: "68rem",
       },
     },
   },
   plugins: [],
-}
+};

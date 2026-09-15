@@ -1,0 +1,74 @@
+---
+import "../input.css";
+import SiteHeader from "../components/SiteHeader.astro";
+
+interface NavLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  product?: string;
+  ogTitle?: string;
+  ogUrl?: string;
+  nav?: NavLink[];
+  cta?: { href: string; label: string };
+}
+
+const {
+  title,
+  description,
+  product,
+  ogTitle = title,
+  ogUrl = "https://marginalia.ventures",
+  nav,
+  cta,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Ben Robertson" />
+    <meta name="theme-color" content="#E8EBE7" />
+    <link rel="icon" href="/images/favicons/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/images/favicons/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:image"
+      content="https://marginalia.ventures/images/favicons/android-chrome-192x192.png"
+    />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta
+      name="twitter:image"
+      content="https://marginalia.ventures/images/favicons/android-chrome-192x192.png"
+    />
+    <meta name="twitter:site" content="@marginaliaventures" />
+
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-3 focus:py-2 focus:text-ink"
+    >
+      Skip to content
+    </a>
+    <SiteHeader product={product} nav={nav} cta={cta} />
+    <slot />
+    <slot name="footer" />
+  </body>
+</html>

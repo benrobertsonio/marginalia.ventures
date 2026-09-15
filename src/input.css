@@ -2,15 +2,323 @@
 @tailwind components;
 @tailwind utilities;
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-clash;
+@font-face {
+  font-family: "Martian Grotesk";
+  font-display: swap;
+  src: url("/fonts/MartianGrotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 100 1000;
+  font-stretch: 75% 200%;
 }
 
-p {
-  @apply font-archivo;
+:root {
+  --paper: #e8ebe7;
+  --paper-rgb: 232 235 231;
+  --ink: #1c271f;
+  --ink-rgb: 28 39 31;
+  --note: #1a4f8b;
+  --quiet: #55635b;
+  --rule: #b7c2b8;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html {
+  background: var(--paper);
+  overflow-x: clip;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Martian Grotesk", system-ui, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-stretch: 100%;
+  line-height: 1.5;
+}
+
+.font-mark {
+  font-stretch: 125%;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.font-display {
+  font-stretch: 87.5%;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.font-note-title {
+  font-stretch: 95%;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.btn {
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-solid {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.panel {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 14px;
+}
+
+.workspace-item {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border-radius: 8px;
+  text-align: left;
+  color: var(--paper);
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.workspace-item input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.workspace-check {
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.workspace-item:has(input:checked) {
+  background: rgb(232 235 231 / 0.1);
+}
+
+.workspace-item:has(input:checked) .workspace-check {
+  opacity: 1;
+}
+
+.site-nav-link {
+  color: var(--quiet);
+  transition: color 160ms ease;
+}
+
+.site-nav-link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.band-ink .btn:focus-visible,
+.btn-paper:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+
+.btn-paper {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+.mac-window {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.mac-window-paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.mac-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid rgb(232 235 231 / 0.12);
+}
+
+.mac-window-paper .mac-window-bar {
+  border-bottom-color: var(--rule);
+}
+
+.mac-traffic {
+  display: flex;
+  gap: 5px;
+}
+
+.mac-traffic span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.28;
+}
+
+.mac-window-title {
+  font-size: 13px;
+  color: rgb(232 235 231 / 0.7);
+}
+
+.mac-window-paper .mac-window-title {
+  color: var(--quiet);
+}
+
+.mac-window-body {
+  padding: 0.5rem;
+}
+
+.feature-shots {
+  display: grid;
+}
+
+.feature-shot {
+  grid-area: 1 / 1;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 200ms var(--ease-out),
+    visibility 200ms var(--ease-out);
+}
+
+.feature-shot .mac-window {
+  display: flex;
+  min-height: 22rem;
+  flex-direction: column;
+}
+
+.feature-shot .mac-window-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-stage:has(#feature-save:checked) [data-shot="save"],
+.feature-stage:has(#feature-switch:checked) [data-shot="switch"],
+.feature-stage:has(#feature-displays:checked) [data-shot="displays"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.feature-pick {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: left;
+  color: rgb(232 235 231 / 0.7);
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.feature-stage:has(#feature-save:checked) [data-feature="save"],
+.feature-stage:has(#feature-switch:checked) [data-feature="switch"],
+.feature-stage:has(#feature-displays:checked) [data-feature="displays"] {
+  background: rgb(232 235 231 / 0.1);
+  color: var(--paper);
+}
+
+.feature-stage:has(#feature-save:focus-visible) [data-feature="save"],
+.feature-stage:has(#feature-switch:focus-visible) [data-feature="switch"],
+.feature-stage:has(#feature-displays:focus-visible) [data-feature="displays"] {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+
+.product-link {
+  transition: color 160ms ease;
+}
+
+.product-link:focus-visible,
+.btn:focus-visible,
+.inline-note:focus-visible,
+.workspace-item:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.panel .workspace-item:has(input:focus-visible) {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .btn-solid:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn-paper:hover {
+    background: var(--paper);
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+
+  .site-nav-link:hover {
+    color: var(--ink);
+  }
+
+  .product:hover .product-link {
+    color: var(--note);
+  }
+
+  .workspace-item:hover {
+    background: rgb(232 235 231 / 0.08);
+  }
+
+  .feature-pick:hover {
+    background: rgb(232 235 231 / 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      border-color 160ms ease;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+
+  .feature-shot {
+    transition: none;
+  }
 }

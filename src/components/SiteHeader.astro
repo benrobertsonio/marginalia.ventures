@@ -1,0 +1,61 @@
+---
+interface NavLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  product?: string;
+  nav?: NavLink[];
+  cta?: { href: string; label: string };
+}
+
+const { product, nav = [], cta } = Astro.props;
+const hasNav = nav.length > 0;
+---
+
+<header class:list={["bg-paper", hasNav && "sticky top-0 z-20"]}>
+  <div
+    class:list={[
+      "mx-auto flex w-full min-w-0 max-w-page items-center gap-3 px-5 py-6 sm:gap-4 sm:px-8 sm:py-7",
+      hasNav && "justify-between",
+    ]}
+  >
+    <div class="flex min-w-0 items-baseline gap-3">
+      <a
+        href="/"
+        class="font-mark shrink-0 text-xl text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink sm:text-2xl"
+      >
+        mv.
+      </a>
+      {
+        product && (
+          <span class="truncate text-[15px] font-medium text-quiet">{product}</span>
+        )
+      }
+    </div>
+    {
+      (hasNav || cta) && (
+        <div class="flex shrink-0 items-center gap-6">
+          {hasNav && (
+            <nav class="hidden items-center gap-6 lg:flex" aria-label="Page">
+              {nav.map((link) => (
+                <a class="site-nav-link text-[15px]" href={link.href}>
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          )}
+          {cta && (
+            <a
+              class="btn btn-solid inline-flex items-center rounded-md border px-3 py-2 text-[15px] font-medium"
+              href={cta.href}
+            >
+              {cta.label}
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
+</header>
